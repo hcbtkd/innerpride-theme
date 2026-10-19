@@ -206,6 +206,11 @@
             margin: 0 auto 2rem;
             line-height: 1.6;
         }
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+            width: 100% !important;
+        }
         @media print {
             .portfolio-topbar, .portfolio-hero .btn, .proposal-cta-box, .btn-print-hide {
                 display: none !important;
@@ -234,6 +239,71 @@
                 gap: 0.35rem;
             }
         }
+        @media (max-width: 768px) {
+            .portfolio-topbar {
+                padding: 0.65rem 0;
+            }
+            .portfolio-topbar-inner {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.65rem;
+            }
+            .portfolio-topbar-left {
+                justify-content: space-between;
+                width: 100%;
+                gap: 0.5rem;
+            }
+            .portfolio-topbar-left .topbar-divider {
+                display: none;
+            }
+            .portfolio-topbar-subtitle {
+                font-size: 0.78rem !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .portfolio-topbar-actions {
+                display: grid !important;
+                grid-template-columns: 1fr 1.2fr;
+                gap: 0.5rem;
+                width: 100%;
+            }
+            .portfolio-topbar-actions .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.5rem 0.6rem !important;
+                font-size: 0.8rem !important;
+                white-space: nowrap;
+            }
+            .portfolio-hero {
+                padding: 2.25rem 0 2rem;
+            }
+            .portfolio-hero h1 {
+                font-size: 1.85rem !important;
+                line-height: 1.2 !important;
+            }
+            .portfolio-hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .portfolio-coach-photo {
+                height: 300px;
+            }
+            .proposal-cta-box {
+                padding: 2rem 1.25rem;
+                margin: 2.5rem 0;
+            }
+            .proposal-cta-box h3 {
+                font-size: 1.45rem;
+            }
+            .proposal-cta-box .btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            .credentials-row {
+                padding: 0.9rem 1.15rem;
+            }
+        }
     </style>
 </head>
 <body class="portfolio-body">
@@ -246,10 +316,10 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 <span>Full Academy Website</span>
             </a>
-            <span style="color: rgba(255,255,255,0.2);">|</span>
-            <span style="font-size: 0.85rem; color: #cbd5e1; font-weight: 600;">School Partnership & Coach Dossier</span>
+            <span class="topbar-divider" style="color: rgba(255,255,255,0.2);">|</span>
+            <span class="portfolio-topbar-subtitle" style="font-size: 0.85rem; color: #cbd5e1; font-weight: 600;">School Partnership & Coach Dossier</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="portfolio-topbar-actions" style="display: flex; align-items: center; gap: 0.75rem;">
             <button onclick="window.print()" class="btn btn-secondary btn-sm btn-print-hide" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
                 <span>🖨️ Print / Save PDF</span>
             </button>
