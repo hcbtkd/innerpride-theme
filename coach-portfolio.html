@@ -227,6 +227,139 @@
                 height: 250px;
             }
         }
+        /* CHAMPIONS CAROUSEL & CARDS */
+        .champions-carousel-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .champions-carousel-track {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+            width: 100%;
+        }
+        .champion-card {
+            background: #ffffff;
+            border: 1px solid var(--border-light, #e2e8f0);
+            border-radius: var(--radius-lg, 16px);
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .champion-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+            border-color: #cbd5e1;
+        }
+        .champion-card-image-wrap {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            background: #0f172a;
+            overflow: hidden;
+        }
+        .champion-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .champion-card:hover .champion-card-img {
+            transform: scale(1.03);
+        }
+        .champion-category-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+        .champion-category-tag.badge-red {
+            background: #dc2626;
+            color: #ffffff;
+        }
+        .champion-category-tag.badge-blue {
+            background: #2563eb;
+            color: #ffffff;
+        }
+        .champion-category-tag.badge-dark {
+            background: #0f172a;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .champion-card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .champion-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 0.35rem 0;
+            line-height: 1.3;
+        }
+        .champion-card-medal {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0 0 0.6rem 0;
+        }
+        .champion-card-medal.medal-gold {
+            color: #dc2626;
+        }
+        .champion-card-medal.medal-blue {
+            color: #2563eb;
+        }
+        .champion-card-medal.medal-green {
+            color: #10b981;
+        }
+        .champion-card-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin: 0;
+        }
+        .champions-pagination-dots {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+        }
+        .champion-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 9999px;
+            background: #cbd5e1;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .champion-dot.active {
+            width: 28px;
+            background: #dc2626;
+            border-radius: 9999px;
+        }
+        .champions-swipe-hint {
+            display: none;
+            text-align: center;
+            font-size: 0.78rem;
+            color: #94a3b8;
+            margin-top: 0.6rem;
+            font-weight: 500;
+        }
+
         @media (max-width: 900px) {
             .portfolio-hero-grid {
                 grid-template-columns: 1fr;
@@ -237,6 +370,54 @@
             .credentials-row {
                 grid-template-columns: 1fr;
                 gap: 0.35rem;
+            }
+            /* Champions Carousel on Tablet & Mobile */
+            .champions-carousel-wrapper {
+                margin-left: -1rem;
+                margin-right: -1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .champions-carousel-track {
+                display: flex !important;
+                grid-template-columns: none !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                scroll-behavior: smooth !important;
+                -webkit-overflow-scrolling: touch !important;
+                gap: 1.15rem !important;
+                padding: 0.5rem 0.5rem 1rem !important;
+                scrollbar-width: none !important;
+            }
+            .champions-carousel-track::-webkit-scrollbar {
+                display: none !important;
+            }
+            .champion-card {
+                flex: 0 0 84vw !important;
+                width: 84vw !important;
+                max-width: 330px !important;
+                scroll-snap-align: center !important;
+                scroll-snap-stop: always !important;
+                box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+                border: 1.5px solid #e2e8f0;
+            }
+            .champion-card.is-active-champion {
+                border-color: #dc2626;
+                box-shadow: 0 12px 30px rgba(220, 38, 38, 0.15);
+            }
+            .champion-card-image-wrap {
+                height: 240px !important;
+            }
+            .champion-card-img {
+                height: 240px !important;
+                object-fit: cover !important;
+            }
+            .champions-pagination-dots {
+                display: flex !important;
+            }
+            .champions-swipe-hint {
+                display: block !important;
             }
         }
         @media (max-width: 768px) {
@@ -613,38 +794,58 @@
             </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem;">
-            <!-- Champion 1 -->
-            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs);">
-                <img src="assets/images/avika-kilam-spotlight.jpg" alt="Avika Kilam CBSE East Zone Gold Medalist" style="width: 100%; height: 260px; object-fit: cover; object-position: top center;">
-                <div style="padding: 1.5rem;">
-                    <span class="badge badge-red" style="font-size: 0.72rem; margin-bottom: 0.5rem;">CBSE EAST ZONE 2026</span>
-                    <h4 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 0.25rem;">Avika Kilam</h4>
-                    <p style="font-size: 0.88rem; color: var(--accent-red); font-weight: 600; margin-bottom: 0.5rem;">🥇 Gold Medalist (Kyorugi)</p>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Trained under Coach Haseeb Ahmad; qualified for CBSE National Championship.</p>
+        <div class="champions-carousel-wrapper">
+            <div class="champions-carousel-track" id="championsCarouselTrack">
+                <!-- Champion 1 -->
+                <div class="champion-card">
+                    <div class="champion-card-image-wrap">
+                        <img src="assets/images/avika-kilam-spotlight.jpg" alt="Avika Kilam CBSE East Zone Gold Medalist" class="champion-card-img" style="object-position: top center;">
+                        <span class="champion-category-tag badge-red">CBSE EAST ZONE 2026</span>
+                    </div>
+                    <div class="champion-card-body">
+                        <h4 class="champion-card-title">Avika Kilam</h4>
+                        <p class="champion-card-medal medal-gold">🥇 Gold Medalist (Kyorugi)</p>
+                        <p class="champion-card-desc">Trained under Coach Haseeb Ahmad; qualified for CBSE National Championship.</p>
+                    </div>
+                </div>
+
+                <!-- Champion 2 -->
+                <div class="champion-card">
+                    <div class="champion-card-image-wrap">
+                        <img src="assets/images/bhu-varanasi-champions.jpg" alt="BHU Varanasi Championship" class="champion-card-img" style="object-position: center;">
+                        <span class="champion-category-tag badge-blue">INTER-COLLEGIATE & ZONAL</span>
+                    </div>
+                    <div class="champion-card-body">
+                        <h4 class="champion-card-title">BHU Varanasi Championship</h4>
+                        <p class="champion-card-medal medal-blue">🏆 Team Podium Honors</p>
+                        <p class="champion-card-desc">Multiple student athletes clinched podium finishes across sub-junior and cadet divisions.</p>
+                    </div>
+                </div>
+
+                <!-- Champion 3 -->
+                <div class="champion-card">
+                    <div class="champion-card-image-wrap">
+                        <img src="assets/images/taqwa-school-medalists.jpg" alt="Taqwa Islamic School Champions" class="champion-card-img" style="object-position: center;">
+                        <span class="champion-category-tag badge-dark">SCHOOL TRAINING PROGRAM</span>
+                    </div>
+                    <div class="champion-card-body">
+                        <h4 class="champion-card-title">Taqwa Islamic School Students</h4>
+                        <p class="champion-card-medal medal-green">🎖️ Multi-Medal Sweep</p>
+                        <p class="champion-card-desc">Girl athletes excelling in Olympic sparring while upholding modesty, discipline, and pride.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Champion 2 -->
-            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs);">
-                <img src="assets/images/bhu-varanasi-champions.jpg" alt="BHU Varanasi Championship" style="width: 100%; height: 260px; object-fit: cover;">
-                <div style="padding: 1.5rem;">
-                    <span class="badge badge-blue" style="font-size: 0.72rem; margin-bottom: 0.5rem;">INTER-COLLEGIATE & ZONAL</span>
-                    <h4 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 0.25rem;">BHU Varanasi Championship</h4>
-                    <p style="font-size: 0.88rem; color: var(--accent-blue); font-weight: 600; margin-bottom: 0.5rem;">🏆 Team Podium Honors</p>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Multiple student athletes clinched podium finishes across sub-junior and cadet divisions.</p>
-                </div>
+            <!-- Dots Indicator for Mobile & Tablet -->
+            <div class="champions-pagination-dots" id="championsDots">
+                <button type="button" class="champion-dot active" aria-label="Slide 1"></button>
+                <button type="button" class="champion-dot" aria-label="Slide 2"></button>
+                <button type="button" class="champion-dot" aria-label="Slide 3"></button>
             </div>
 
-            <!-- Champion 3 -->
-            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs);">
-                <img src="assets/images/taqwa-school-medalists.jpg" alt="Taqwa Islamic School Champions" style="width: 100%; height: 260px; object-fit: cover;">
-                <div style="padding: 1.5rem;">
-                    <span class="badge badge-dark" style="font-size: 0.72rem; margin-bottom: 0.5rem;">SCHOOL TRAINING PROGRAM</span>
-                    <h4 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 0.25rem;">Taqwa Islamic School Students</h4>
-                    <p style="font-size: 0.88rem; color: #10b981; font-weight: 600; margin-bottom: 0.5rem;">🎖️ Multi-Medal Sweep</p>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Girl athletes excelling in Olympic sparring while upholding modesty, discipline, and pride.</p>
-                </div>
+            <!-- Swipe / Auto-Scroll Hint for Mobile -->
+            <div class="champions-swipe-hint">
+                <span>👈 Swipe cards or watch auto-scroll 👉</span>
             </div>
         </div>
     </div>
@@ -680,5 +881,134 @@
     </div>
 </footer>
 
+<!-- JAVASCRIPT: AUTO-SCROLLING CHAMPIONS CAROUSEL -->
+<script>
+(function() {
+    const track = document.getElementById('championsCarouselTrack');
+    const dots = document.querySelectorAll('.champion-dot');
+    if (!track) return;
+
+    let autoplayTimer = null;
+    let isInteracting = false;
+    let resumeTimeout = null;
+
+    function getCardStep() {
+        const firstCard = track.querySelector('.champion-card');
+        return firstCard ? (firstCard.offsetWidth + 18) : 300;
+    }
+
+    function isSliderActive() {
+        return (track.scrollWidth > track.clientWidth + 15);
+    }
+
+    function scrollNextChampion() {
+        if (!isSliderActive() || isInteracting) return;
+        const step = getCardStep();
+        const maxScroll = track.scrollWidth - track.clientWidth;
+
+        if (track.scrollLeft >= maxScroll - 20) {
+            track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            track.scrollBy({ left: step, behavior: 'smooth' });
+        }
+    }
+
+    function updateActiveDot() {
+        if (!dots.length) return;
+        const step = getCardStep();
+        const currentIndex = Math.min(
+            dots.length - 1,
+            Math.max(0, Math.round(track.scrollLeft / step))
+        );
+
+        dots.forEach((dot, idx) => {
+            if (idx === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+
+        const cards = track.querySelectorAll('.champion-card');
+        cards.forEach((card, idx) => {
+            if (idx === currentIndex) {
+                card.classList.add('is-active-champion');
+            } else {
+                card.classList.remove('is-active-champion');
+            }
+        });
+    }
+
+    function startAutoplay() {
+        stopAutoplay();
+        if (!isSliderActive()) return;
+        autoplayTimer = setInterval(scrollNextChampion, 3500);
+    }
+
+    function stopAutoplay() {
+        if (autoplayTimer) {
+            clearInterval(autoplayTimer);
+            autoplayTimer = null;
+        }
+    }
+
+    function pauseOnUserInteraction() {
+        isInteracting = true;
+        stopAutoplay();
+        if (resumeTimeout) clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+            isInteracting = false;
+            startAutoplay();
+        }, 4000);
+    }
+
+    // Dot click listeners
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            pauseOnUserInteraction();
+            const step = getCardStep();
+            track.scrollTo({ left: index * step, behavior: 'smooth' });
+        });
+    });
+
+    // Touch and mouse listeners
+    track.addEventListener('touchstart', () => {
+        isInteracting = true;
+        stopAutoplay();
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+        pauseOnUserInteraction();
+    }, { passive: true });
+
+    track.addEventListener('mouseenter', () => {
+        isInteracting = true;
+        stopAutoplay();
+    });
+
+    track.addEventListener('mouseleave', () => {
+        isInteracting = false;
+        startAutoplay();
+    });
+
+    track.addEventListener('scroll', () => {
+        updateActiveDot();
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        if (isSliderActive()) {
+            startAutoplay();
+        } else {
+            stopAutoplay();
+        }
+    });
+
+    // Start auto-scroll
+    setTimeout(() => {
+        updateActiveDot();
+        startAutoplay();
+    }, 600);
+})();
+</script>
 </body>
 </html>

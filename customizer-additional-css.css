@@ -155,3 +155,148 @@ html, body {
   }
 }
 
+/* 5. Coach Portfolio: Champions Carousel & Cards Auto-Scroll on Mobile */
+.champions-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+.champions-carousel-track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  width: 100%;
+}
+.champion-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+.champion-card-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: #0f172a;
+  overflow: hidden;
+}
+.champion-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.champion-category-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.champion-category-tag.badge-red {
+  background: #dc2626;
+  color: #ffffff;
+}
+.champion-category-tag.badge-blue {
+  background: #2563eb;
+  color: #ffffff;
+}
+.champion-category-tag.badge-dark {
+  background: #0f172a;
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.champion-card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.champions-pagination-dots {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+.champion-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: #cbd5e1;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.champion-dot.active {
+  width: 28px;
+  background: #dc2626;
+  border-radius: 9999px;
+}
+.champions-swipe-hint {
+  display: none;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 0.6rem;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .champions-carousel-wrapper {
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .champions-carousel-track {
+    display: flex !important;
+    grid-template-columns: none !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 1.15rem !important;
+    padding: 0.5rem 0.5rem 1rem !important;
+    scrollbar-width: none !important;
+  }
+  .champions-carousel-track::-webkit-scrollbar {
+    display: none !important;
+  }
+  .champion-card {
+    flex: 0 0 84vw !important;
+    width: 84vw !important;
+    max-width: 330px !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: always !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+    border: 1.5px solid #e2e8f0 !important;
+  }
+  .champion-card.is-active-champion {
+    border-color: #dc2626 !important;
+    box-shadow: 0 12px 30px rgba(220, 38, 38, 0.15) !important;
+  }
+  .champion-card-image-wrap {
+    height: 240px !important;
+  }
+  .champion-card-img {
+    height: 240px !important;
+    object-fit: cover !important;
+  }
+  .champions-pagination-dots {
+    display: flex !important;
+  }
+  .champions-swipe-hint {
+    display: block !important;
+  }
+}
+
+
