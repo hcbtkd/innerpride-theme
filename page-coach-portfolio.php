@@ -1,0 +1,632 @@
+<?php
+/**
+ * Template Name: Coach Portfolio & School Proposal
+ *
+ * @package InnerPride
+ */
+
+$academy_email = get_theme_mod( 'academy_email', 'admin@iptaekwondo.in' );
+$academy_phone = get_theme_mod( 'academy_phone', '+91 7309595831' );
+$clean_phone   = preg_replace( '/[^0-9]/', '', $academy_phone );
+$coach_photo   = get_theme_mod( 'coach_photo', get_template_directory_uri() . '/assets/images/coach-haseeb.png' );
+?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Haseeb Ahmad - School Taekwondo & Physical Education Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="<?php echo esc_url( get_template_directory_uri() . '/assets/images/academy-logo.png' ); ?>">
+    <link rel="stylesheet" href="<?php echo esc_url( get_stylesheet_uri() ); ?>">
+    <style>
+        .portfolio-body {
+            background-color: #f8fafc;
+            color: var(--text-primary);
+        }
+        .portfolio-topbar {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .portfolio-topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .portfolio-topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .portfolio-topbar-left a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s;
+        }
+        .portfolio-topbar-left a:hover {
+            color: #ffffff;
+        }
+        .portfolio-hero {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            padding: 5rem 0 4rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .portfolio-hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 3.5rem;
+            align-items: center;
+        }
+        .portfolio-coach-card {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            border: 1px solid var(--border-light);
+            text-align: center;
+        }
+        .portfolio-coach-photo {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            object-position: top center;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.25rem;
+            background: #e2e8f0;
+        }
+        .credential-pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0 2rem;
+        }
+        .credential-pill {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--radius-full);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            box-shadow: var(--shadow-xs);
+        }
+        .program-card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .school-program-item {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-xs);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .school-program-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: #cbd5e1;
+        }
+        .program-icon-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: var(--accent-red-subtle);
+            color: var(--accent-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .school-program-item h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+        }
+        .school-program-item p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+        .credentials-table-box {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            box-shadow: var(--shadow-xs);
+            margin-top: 2rem;
+        }
+        .credentials-row {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            padding: 1.2rem 1.75rem;
+            border-bottom: 1px solid var(--border-subtle);
+            align-items: center;
+        }
+        .credentials-row:last-child {
+            border-bottom: none;
+        }
+        .credentials-row:nth-child(even) {
+            background: #f8fafc;
+        }
+        .credentials-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .credentials-value {
+            font-size: 0.94rem;
+            color: var(--text-secondary);
+        }
+        .medal-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .medal-tag.gold {
+            background: #fefce8;
+            color: #a16207;
+            border: 1px solid rgba(202, 138, 4, 0.25);
+        }
+        .medal-tag.silver {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid rgba(100, 116, 139, 0.25);
+        }
+        .proposal-cta-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%);
+            border: 2px solid rgba(245, 158, 11, 0.45);
+            border-radius: var(--radius-xl);
+            padding: 3.5rem;
+            color: #ffffff;
+            text-align: center;
+            margin: 4rem 0;
+            box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.35), 0 0 30px rgba(245, 158, 11, 0.12);
+        }
+        .proposal-cta-box h3 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+        }
+        .proposal-cta-box p {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            max-width: 650px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        @media print {
+            .portfolio-topbar, .portfolio-hero .btn, .proposal-cta-box, .btn-print-hide {
+                display: none !important;
+            }
+            .portfolio-hero {
+                padding: 1rem 0;
+                background: none;
+            }
+            .portfolio-hero-grid {
+                grid-template-columns: 1fr 250px;
+                gap: 1.5rem;
+            }
+            .portfolio-coach-photo {
+                height: 250px;
+            }
+        }
+        @media (max-width: 900px) {
+            .portfolio-hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .program-card-grid {
+                grid-template-columns: 1fr;
+            }
+            .credentials-row {
+                grid-template-columns: 1fr;
+                gap: 0.35rem;
+            }
+        }
+    </style>
+</head>
+<body class="portfolio-body">
+
+<!-- STICKY TOPBAR -->
+<div class="portfolio-topbar">
+    <div class="container portfolio-topbar-inner">
+        <div class="portfolio-topbar-left">
+            <a href="<?php echo esc_url( home_url( '/#coach' ) ); ?>">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>Full Academy Website</span>
+            </a>
+            <span style="color: rgba(255,255,255,0.2);">|</span>
+            <span style="font-size: 0.85rem; color: #cbd5e1; font-weight: 600;">School Partnership & Coach Dossier</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <button onclick="window.print()" class="btn btn-secondary btn-sm btn-print-hide" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
+                <span>🖨️ Print / Save PDF</span>
+            </button>
+            <a href="https://api.whatsapp.com/send?phone=<?php echo esc_attr( $clean_phone ); ?>&text=Hello%20Coach%20Haseeb,%20we%20reviewed%20your%20portfolio%20and%20want%20to%20discuss%20a%20Taekwondo%20program%20for%20our%20School." target="_blank" rel="noopener" class="btn btn-red btn-sm">
+                <span>Direct WhatsApp</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- EXECUTIVE DOSSIER HERO -->
+<section class="portfolio-hero">
+    <div class="container">
+        <div class="portfolio-hero-grid">
+            <div>
+                <span class="badge badge-red" style="margin-bottom: 1rem;">OFFICIAL HEAD COACH & ATHLETIC DIRECTOR</span>
+                <h1 style="font-family: var(--font-heading); font-size: 2.75rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; color: var(--text-primary);">
+                    Coach Haseeb Ahmad
+                </h1>
+                <p style="font-size: 1.15rem; font-weight: 600; color: var(--accent-red); margin-bottom: 1.25rem;">
+                    M.P.Ed (University of Allahabad) • B.P.Ed (PRSU Prayagraj) • B.P.E.S (RMLAU Ayodhya) • Black Belt 2nd DAN • National Referee
+                </p>
+                <p style="font-size: 1.02rem; color: var(--text-secondary); line-height: 1.7; max-width: 650px; margin-bottom: 1.75rem;">
+                    Passionate Taekwondo instructor and physical education master with extensive experience teaching students in school and dojang settings. Certified World Taekwondo Black Belt 2nd DAN, Official National Referee, and Master Trainer for UP Government teacher empowerment projects.
+                </p>
+
+                <div class="credential-pill-list">
+                    <div class="credential-pill">🎓 <strong>M.P.Ed — University of Allahabad (2025)</strong></div>
+                    <div class="credential-pill">🎓 <strong>B.P.Ed — Prof. Rajendra Singh (Rajju Bhaiya) University, Prayagraj (2023)</strong></div>
+                    <div class="credential-pill">🎓 <strong>B.P.E.S — Dr. Ram Manohar Lohia Avadh University, Ayodhya (2021)</strong></div>
+                    <div class="credential-pill">🥋 <strong>Taekwondo Black Belt 2nd DAN</strong></div>
+                    <div class="credential-pill">⚖️ <strong>Official National Referee</strong></div>
+                    <div class="credential-pill">🥇 <strong>KUKKIWON Cup IND International Gold (Delhi 2017)</strong></div>
+                    <div class="credential-pill">🥇 <strong>37th Senior State Double Gold (Ghazipur 2018)</strong></div>
+                    <div class="credential-pill">🥈 <strong>Jaipur National Silver & 🥉 Bronze (2018)</strong></div>
+                    <div class="credential-pill">🇮🇳 <strong>5x All India University Games Competitor</strong></div>
+                    <div class="credential-pill">🛡️ <strong>Master Trainer — Rani Lakshmi Bai Shivir (UP Govt)</strong></div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="https://api.whatsapp.com/send?phone=<?php echo esc_attr( $clean_phone ); ?>&text=Hi%20Coach%20Haseeb,%20we%20are%20interested%20in%20introducing%20Taekwondo%20in%20our%20School.%20Please%20share%20your%20proposal." target="_blank" rel="noopener" class="btn btn-red">
+                        <span>🏫 Request School Tie-Up Proposal</span>
+                    </a>
+                    <a href="tel:+<?php echo esc_attr( $clean_phone ); ?>" class="btn btn-secondary">
+                        <span>📞 Call <?php echo esc_html( $academy_phone ); ?></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Photo Card -->
+            <div class="portfolio-coach-card">
+                <img src="<?php echo esc_url( $coach_photo ); ?>" alt="Coach Haseeb Ahmad - Taekwondo Black Belt 2nd DAN & National Referee" class="portfolio-coach-photo">
+                <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; margin-bottom: 0.25rem;">Coach Haseeb Ahmad</h3>
+                <p style="font-size: 0.85rem; color: var(--accent-red); font-weight: 700; margin-bottom: 0.35rem;">Black Belt 2nd DAN • National Referee</p>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.85rem;">Former Taekwondo Coach, Taqwa Islamic School (2023 – March 2026)<br>Founder & Head Coach, Inner Pride Academy</p>
+                <div style="display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap;">
+                    <span class="badge badge-dark">Allahabad Univ (M.P.Ed)</span>
+                    <span class="badge badge-blue">PRSU (B.P.Ed)</span>
+                    <span class="badge badge-red">RMLAU (B.P.E.S)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SCHOOL PROGRAMS OFFERED -->
+<section style="padding: 4.5rem 0; background: #ffffff;">
+    <div class="container">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">
+            <span class="badge badge-blue">STRUCTURED INSTITUTIONAL MODULES</span>
+            <h2 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; margin-top: 0.5rem; color: var(--text-primary);">
+                Taekwondo & Physical Training Programs for Schools
+            </h2>
+            <p style="font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                Customizable modules designed to seamlessly integrate with your school's weekly timetable, annual sports calendar, and safety requirements.
+            </p>
+        </div>
+
+        <div class="program-card-grid">
+            <!-- Program 1 -->
+            <div class="school-program-item">
+                <div class="program-icon-badge">🥋</div>
+                <h4>1. Regular In-School Martial Arts Curriculum</h4>
+                <p>
+                    Weekly graded martial arts and physical education sessions for students from Nursery through Class 12. Covers foundational stances, core agility, flexibility, balance, and formal belt rank examinations conducted under recognized federation standards.
+                </p>
+            </div>
+
+            <!-- Program 2 -->
+            <div class="school-program-item">
+                <div class="program-icon-badge">🛡️</div>
+                <h4>2. Rani Lakshmi Bai Balika Self-Defense Workshops</h4>
+                <p>
+                    Specialized safety and self-defense training for female students. As a recognized Master Trainer for the UP Government's Rani Lakshmi Bai initiative, Coach Haseeb conducts empowering workshops teaching situational awareness, wrist/grab escapes, and practical counter-techniques.
+                </p>
+            </div>
+
+            <!-- Program 3 -->
+            <div class="school-program-item">
+                <div class="program-icon-badge">🏆</div>
+                <h4>3. CBSE / CISCE / SGFI Competition Coaching</h4>
+                <p>
+                    Dedicated coaching for school sports teams to represent the institution at official CBSE East Zone, SGFI National School Games, and State Championships. Proven pedigree includes coaching athletes like Avika Kilam to Gold at the CBSE East Zone Championship 2026.
+                </p>
+            </div>
+
+            <!-- Program 4 -->
+            <div class="school-program-item">
+                <div class="program-icon-badge">⚡</div>
+                <h4>4. Annual Sports Day Displays & Demonstrations</h4>
+                <p>
+                    High-impact martial arts showcases for school annual days and sports meets. Includes synchronized musical Poomsae, blindfolded kicking drills, high-altitude board breaking, and real-time self-defense simulations that leave parents and guests thrilled.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- QUALIFICATIONS & ACADEMIC DOSSIER -->
+<section style="padding: 4.5rem 0; background: var(--bg-secondary);">
+    <div class="container">
+        <div style="max-width: 860px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <span class="badge badge-dark">VERIFIED RESUME DOSSIER</span>
+                <h2 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; margin-top: 0.5rem; color: var(--text-primary);">
+                    Academic Background & Qualifications
+                </h2>
+                <p style="font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                    Official academic and physical education degrees from recognized state and central universities.
+                </p>
+            </div>
+
+            <div class="credentials-table-box">
+                <div class="credentials-row">
+                    <div class="credentials-label">Postgraduate Degree (2025)</div>
+                    <div class="credentials-value"><strong>Master of Physical Education (M.P.Ed)</strong> — University of Allahabad (Allahabad University)</div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">Undergraduate Degree (2023)</div>
+                    <div class="credentials-value"><strong>Bachelor of Physical Education (B.P.Ed)</strong> — Prof. Rajendra Singh (Rajju Bhaiya) University, Prayagraj</div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">Sports Degree (2021)</div>
+                    <div class="credentials-value"><strong>Bachelor of Physical Education and Sports (B.P.E.S)</strong> — Dr. Ram Manohar Lohia Avadh University, Ayodhya (Faizabad)</div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">School Education</div>
+                    <div class="credentials-value"><strong>Intermediate (2018)</strong> &bull; <strong>High School (2015)</strong></div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">Martial Arts Rank</div>
+                    <div class="credentials-value"><strong>Taekwondo Black Belt 2nd DAN</strong> — World Taekwondo & Kukkiwon Syllabus</div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">Referee Certification</div>
+                    <div class="credentials-value"><strong>Official National Referee</strong> — Certified for State & National Taekwondo Championships</div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">School Coaching Tenure</div>
+                    <div class="credentials-value"><strong>Taekwondo Coach at Taqwa Islamic School</strong> (Served 2023 – March 2026)</div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">Government Master Trainer</div>
+                    <div class="credentials-value"><strong>Rani Lakshmi Bai Atma Raksha Shivir</strong> &amp; <strong>Primary/Upper Primary Teachers' Self-Defence Camp</strong> (Training of Teachers UP Govt Project)</div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">CSR & Youth Programs</div>
+                    <div class="credentials-value"><strong>TATA TEA Self Defence Program</strong> &bull; <strong>ABVP Self Defence Program</strong></div>
+                </div>
+                <div class="credentials-row">
+                    <div class="credentials-label">Academy Dojang</div>
+                    <div class="credentials-value"><strong>Inner Pride Taekwondo Academy</strong> — DAV College Ground, Meerapur, Prayagraj</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COACH RESUME MEDALS & TOURNAMENT RECORD (100% VERIFIED FROM RESUME) -->
+<section style="padding: 4.5rem 0; background: #ffffff;">
+    <div class="container">
+        <div style="max-width: 860px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <span class="badge badge-red">ATHLETIC HONORS & TOURNAMENT RECORD</span>
+                <h2 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; margin-top: 0.5rem; color: var(--text-primary);">
+                    Coach Haseeb Ahmad — Achievements & Awards
+                </h2>
+                <p style="font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                    Exact verified medals and official tournament participations from Coach Haseeb's professional athletic career.
+                </p>
+            </div>
+
+            <div class="credentials-table-box">
+                <!-- Kukkiwon Cup Gold -->
+                <div class="credentials-row">
+                    <div class="credentials-label" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="medal-tag gold" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">🥇 Gold Medal</span>
+                    </div>
+                    <div class="credentials-value">
+                        <strong>KUKKIWON Cup IND International Championship Delhi (2017)</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--text-muted);">International Taekwondo Championship organized under Kukkiwon World Taekwondo Headquarters.</p>
+                    </div>
+                </div>
+
+                <!-- 37th Senior State Individual Gold -->
+                <div class="credentials-row">
+                    <div class="credentials-label" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="medal-tag gold" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">🥇 Gold Medal</span>
+                    </div>
+                    <div class="credentials-value">
+                        <strong>37th Senior State Taekwondo Championship Ghazipur (2018) — Individual Event</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--text-muted);">State Championship Gold Medalist in Senior Men's Kyorugi Individual Division.</p>
+                    </div>
+                </div>
+
+                <!-- 37th Senior State Team Gold -->
+                <div class="credentials-row">
+                    <div class="credentials-label" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="medal-tag gold" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">🥇 Gold Medal</span>
+                    </div>
+                    <div class="credentials-value">
+                        <strong>37th Senior State Taekwondo Championship Ghazipur (2018) — Team Event</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--text-muted);">State Championship Gold Medalist in Senior Men's Team Event.</p>
+                    </div>
+                </div>
+
+                <!-- Jaipur National Silver -->
+                <div class="credentials-row">
+                    <div class="credentials-label" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="medal-tag silver" style="font-size: 0.75rem; padding: 0.2rem 0.6rem;">🥈 Silver Medal</span>
+                    </div>
+                    <div class="credentials-value">
+                        <strong>Jaipur National Taekwondo Championship Rajasthan (2018)</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--text-muted);">National Silver Medalist at official National Championship in Jaipur, Rajasthan.</p>
+                    </div>
+                </div>
+
+                <!-- Jaipur National Bronze -->
+                <div class="credentials-row">
+                    <div class="credentials-label" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="medal-tag" style="font-size: 0.75rem; padding: 0.2rem 0.6rem; background: #fff7ed; color: #c2410c; border: 1px solid rgba(194, 65, 12, 0.2);">🥉 Bronze Medal</span>
+                    </div>
+                    <div class="credentials-value">
+                        <strong>Jaipur National Taekwondo Championship (2018)</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--text-muted);">National Bronze Medalist in competitive Kyorugi division.</p>
+                    </div>
+                </div>
+
+                <!-- 10th Senior Championship Jabalpur -->
+                <div class="credentials-row">
+                    <div class="credentials-label" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="badge badge-dark" style="font-size: 0.72rem; padding: 0.2rem 0.6rem;">🥋 Participation</span>
+                    </div>
+                    <div class="credentials-value">
+                        <strong>10th Senior Taekwondo Championship Jabalpur, MP (2018)</strong>
+                        <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--text-muted);">Senior National Competition Athlete Representation.</p>
+                    </div>
+                </div>
+
+                <!-- 5x All India University Games -->
+                <div class="credentials-row">
+                    <div class="credentials-label" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span class="badge badge-blue" style="font-size: 0.72rem; padding: 0.2rem 0.6rem;">🇮🇳 5x University</span>
+                    </div>
+                    <div class="credentials-value">
+                        <strong>All India University Taekwondo Games (5-Time Representation)</strong>
+                        <ul style="margin: 0.35rem 0 0 1.2rem; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                            <li>All India University Taekwondo Games (2020) — Participation</li>
+                            <li>All India University Taekwondo Games, Kerala (2022) — Participation</li>
+                            <li>All India University Taekwondo Games, Amritsar (2023) — Participation</li>
+                            <li>All India University Taekwondo Games, Jhunjhunu (2024) — Participation</li>
+                            <li>All India University Taekwondo Games, GNDU Amritsar (2025) — Participation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STUDENT CHAMPIONS TRACK RECORD -->
+<section style="padding: 4.5rem 0; background: #ffffff;">
+    <div class="container">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">
+            <span class="badge badge-red">PROVEN STUDENT SUCCESS</span>
+            <h2 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; margin-top: 0.5rem; color: var(--text-primary);">
+                School & Zonal Champions Produced
+            </h2>
+            <p style="font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                Students trained by Coach Haseeb Ahmad regularly bring laurels to their schools and families.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem;">
+            <!-- Champion 1 -->
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs);">
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/avika-kilam-spotlight.jpg' ); ?>" alt="Avika Kilam CBSE East Zone Gold Medalist" style="width: 100%; height: 260px; object-fit: cover; object-position: top center;">
+                <div style="padding: 1.5rem;">
+                    <span class="badge badge-red" style="font-size: 0.72rem; margin-bottom: 0.5rem;">CBSE EAST ZONE 2026</span>
+                    <h4 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 0.25rem;">Avika Kilam</h4>
+                    <p style="font-size: 0.88rem; color: var(--accent-red); font-weight: 600; margin-bottom: 0.5rem;">🥇 Gold Medalist (Kyorugi)</p>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Trained under Coach Haseeb Ahmad; qualified for CBSE National Championship.</p>
+                </div>
+            </div>
+
+            <!-- Champion 2 -->
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs);">
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/bhu-varanasi-champions.jpg' ); ?>" alt="BHU Varanasi Championship" style="width: 100%; height: 260px; object-fit: cover;">
+                <div style="padding: 1.5rem;">
+                    <span class="badge badge-blue" style="font-size: 0.72rem; margin-bottom: 0.5rem;">INTER-COLLEGIATE & ZONAL</span>
+                    <h4 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 0.25rem;">BHU Varanasi Championship</h4>
+                    <p style="font-size: 0.88rem; color: var(--accent-blue); font-weight: 600; margin-bottom: 0.5rem;">🏆 Team Podium Honors</p>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Multiple student athletes clinched podium finishes across sub-junior and cadet divisions.</p>
+                </div>
+            </div>
+
+            <!-- Champion 3 -->
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs);">
+                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/taqwa-school-medalists.jpg' ); ?>" alt="Taqwa Islamic School Champions" style="width: 100%; height: 260px; object-fit: cover;">
+                <div style="padding: 1.5rem;">
+                    <span class="badge badge-dark" style="font-size: 0.72rem; margin-bottom: 0.5rem;">SCHOOL TRAINING PROGRAM</span>
+                    <h4 style="font-family: var(--font-heading); font-weight: 700; margin-bottom: 0.25rem;">Taqwa Islamic School Students</h4>
+                    <p style="font-size: 0.88rem; color: #10b981; font-weight: 600; margin-bottom: 0.5rem;">🎖️ Multi-Medal Sweep</p>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Girl athletes excelling in Olympic sparring while upholding modesty, discipline, and pride.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROPOSAL CALL TO ACTION FOR SCHOOLS -->
+<section class="container">
+    <div class="proposal-cta-box">
+        <span class="badge badge-red" style="margin-bottom: 1rem;">GET IN TOUCH WITH THE COACH</span>
+        <h3>Introduce World-Class Martial Arts in Your School</h3>
+        <p>
+            Whether you want a regular weekly curriculum, a summer camp, a specialized girls' self-defense workshop, or a school team coach for CBSE/SGFI tournaments, Coach Haseeb Ahmad is available for institutional tie-ups.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap;">
+            <a href="https://api.whatsapp.com/send?phone=<?php echo esc_attr( $clean_phone ); ?>&text=Hello%20Coach%20Haseeb,%20we%20would%20like%20to%20invite%20you%20for%20a%20meeting%20regarding%20Taekwondo%20training%20at%20our%20School." target="_blank" rel="noopener" class="btn btn-red" style="font-size: 1rem; padding: 0.95rem 2rem;">
+                <span>💬 WhatsApp Proposal Request</span>
+            </a>
+            <a href="tel:+<?php echo esc_attr( $clean_phone ); ?>" class="btn btn-secondary" style="font-size: 1rem; padding: 0.95rem 2rem;">
+                <span>📞 Call Coach Direct (<?php echo esc_html( $academy_phone ); ?>)</span>
+            </a>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn btn-primary" style="font-size: 1rem; padding: 0.95rem 2rem;">
+                <span>🥋 Visit Main Academy Website</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background: #0f172a; color: #94a3b8; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.88rem;">
+    <div class="container">
+        <p style="margin-bottom: 0.4rem; color: #ffffff; font-weight: 600;">Coach Haseeb Ahmad • Master of Physical Education (M.P.Ed, B.P.Ed)</p>
+        <p style="margin: 0;">Head Coach, Inner Pride Taekwondo Academy • DAV College Ground, Meerapur, Prayagraj • Digital Innovation by Shef Tech.</p>
+    </div>
+</footer>
+
+</body>
+</html>
